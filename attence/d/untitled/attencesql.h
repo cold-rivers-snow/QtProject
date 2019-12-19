@@ -15,7 +15,7 @@
 //    explicit attenceSql(QDialog *parent = 0);  //explicit 防止歧义
 //    bool connectMySQL();
 //    static void selMySQL(QString check);
-////    static QString insertName;
+//    static QString insertName;
 
 //signals:
 

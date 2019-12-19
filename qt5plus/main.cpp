@@ -1,16 +1,11 @@
-#include "widget.h"
+#include "dialog.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Widget w;
-//    w.resize(400,300);
-
-//    SubWindow subWindow(&w);
-//    subWindow.move(200,180);
-
+    Dialog w;
     w.show();
     return a.exec();
 }

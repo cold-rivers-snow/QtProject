@@ -623,6 +623,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(tab,SIGNAL(currentChanged(int)),this,SLOT(currentTab(int)));
     */
 
+    /*
     QToolBar *toolbar = new QToolBar(this);
     QAction *act[2];
 
@@ -642,6 +643,393 @@ MainWindow::MainWindow(QWidget *parent) :
 
     }
     connect(act[0],SIGNAL(triggered()),this,SLOT(trigger1()));
+    */
+/*
+//    setTabText()设置文本，setTabIcon()设置选项卡图标，setTabToolTip()添加选项卡提示框。
+    //setTabTextColor()设置选项卡显示文本颜色，setShape() 设置选项卡样式
+//    QTabBar::RoundedNorth           0           默认样式
+//    QTabBar::RoundedSouth           1           页面下方为圆形
+//    QTabBar::RoundedWest            2           页面左侧部分为圆形
+//    QTabBar::RoundedEast            3           页面右侧部分为圆形
+//    QTabBar::TrianguarNorth         4           三角形
+//    QTabBar::TrianguarSouth         5           与Excel表格中使用的样式类似三角形
+//    QTabBar::TrianguarWest          6           页面左侧部分为三角形
+//    QTabBar::TrianguarEast          7           页面右侧部分为三角形
+
+    tabBar = new  QTabBar(this);
+    tabBar->addTab("Browser");  //添加选项卡
+    tabBar->addTab("User");
+    tabBar->addTab("Application");
+    tabBar->adjustSize();
+    connect(tabBar,SIGNAL(currentChanged(int)),this,SLOT(currentTab(int)));
+    */
+
+    /*
+    //itemText()获取QString 返回值，itemIcon()返回QIcon
+
+    box = new QToolBox(this);
+    lay = new QHBoxLayout(this);
+
+    btn[0] = new QPushButton("DataBase -1",this);
+    btn[1] = new QPushButton("Network -2",this);
+    btn[2] = new QPushButton("Graphics -3",this);
+    btn[0]->adjustSize();
+    btn[1]->adjustSize();
+    btn[2]->adjustSize();
+    box->addItem(btn[0],"DataBase");
+    box->addItem(btn[1],"Network");
+    box->addItem(btn[2],"Graphics");
+    box->adjustSize();
+
+    lay->addWidget(box);
+    setLayout(lay);
+
+    //insertItem() 和 removeItem() 选项卡的添加/删除项目
+    //currentIndex() 返回当前项目控件的索引
+    connect(box,SIGNAL(currentChanged(int)),this,SLOT(changedTab(int)));
+*/
+
+    /*
+    //QIcon类指定QToolButton的图标，是否可用。
+    //setToolButtonStyle()设置按钮类型
+    //setIconSize()设置图标大小
+    tool = new QToolBar(this);
+    button[0] = new QToolButton;
+    button[0]->setIcon(QIcon(":resources/browser.png"));
+
+    button[1] = new QToolButton;
+    button[1]->setIcon(QIcon(":resources/calendar.png"));
+
+    button[2] = new QToolButton;
+    button[2]->setIcon(QIcon(":resources/chat.png"));
+
+    tool->addWidget(button[0]);
+    tool->addWidget(button[1]);
+    tool->addSeparator();   //分隔符
+    tool->addWidget(button[2]);
+*/
+
+
+    /*
+//    QHBoxLayout             水平布局控件
+//    QVBoxLayout             垂直布局控件
+//    QGridLayout             将控件布置为网格状
+//    QBoxLayout              可以水平或垂直布局控件的类，使用选项决定布局方向
+
+       hboxLayout = new QHBoxLayout(this);
+
+       QString btnStr[6] = {
+           "NetBook","Tablet","Handset","Genivi","SmartTV","Vechile"
+       };
+
+       for(int i = 0;i < 6;i++)
+       {
+           btn[i] = new QPushButton(btnStr[i],this);
+           hboxLayout->addWidget(btn[i]);
+       }
+
+       setLayout(hboxLayout);   //默认布局
+
+
+       vboxlayout = new QVBoxLayout(this);
+        QPushButton *vbtn[6];
+       QString vbtnStr[6] = {
+           "NetBook","Tablet","Handset","Genivi","SmartTV","Vechile"
+       };
+
+       for(int i = 0;i < 6;i++)
+       {
+           vbtn[i] = new QPushButton(vbtnStr[i],this);
+           vboxlayout->addWidget(vbtn[i]);
+       }
+
+       setLayout(vboxlayout);   //默认布局
+
+       QVBoxLayout* pLayout = new QVBoxLayout();//水平布局
+
+       QPushButton* p1 = new QPushButton("p1",this);
+       QPushButton* p2 = new QPushButton("p2",this);
+       QPushButton* p3 = new QPushButton("p3",this);
+       QPushButton* p4 = new QPushButton("p4",this);
+
+       pLayout->addWidget(p1);
+       pLayout->addStretch();
+       pLayout->addWidget(p2);
+       pLayout->addWidget(p3);
+       pLayout->addWidget(p4);
+
+       this->setLayout(pLayout);
+
+    gridLayout = new QGridLayout(this);
+    QPushButton *gbtn[6];
+    QString btnStr[6] = {
+        "NetBook","Tablet","Handset","Genivi","SmartTV","Vechile"
+    };
+
+    for(int i = 0;i < 6;i++)
+    {
+        gbtn[i] = new QPushButton(btnStr[i],this);
+    }
+    gridLayout->addWidget(gbtn[0],0,0);
+    gridLayout->addWidget(gbtn[1],0,1);
+    gridLayout->addWidget(gbtn[2],1,0,1,2);
+    gridLayout->addWidget(gbtn[3],2,0);
+    gridLayout->addWidget(gbtn[4],2,1);
+
+
+    this->setLayout(gridLayout);   //默认布局
+
+    QHBoxLayout *hboxLayout = new QHBoxLayout();
+    QVBoxLayout *vboxLayout = new QVBoxLayout();
+    QGridLayout *gridLayout = new QGridLayout();
+
+    QVBoxLayout *defaultLayout = new QVBoxLayout();
+
+    defaultLayout->addLayout(hboxLayout);
+    defaultLayout->addLayout(vboxLayout);
+    defaultLayout->addLayout(gridLayout);
+
+    setLayout(defaultLayout);*/
+
+    /*
+    QColumnView                         基于模型/视图的列视图控件
+    QDataWidgetMapper                   连接控件和模型数据的映射类控件
+    QListView                           列表形态的视图控件
+    QTableView                          基于模型/视图的表格视图控件
+    QTreeView                           基于模型/视图的树型视图控件
+    QDesktopWidget                      用一个显卡访问多个虚拟的桌面画面的控件
+    QUndoView                           将撤销栈的内容显示并输出到列表控件的控件
+    QCalendarWidget                     以日历形式显示用户选择的日期的控件
+    QMacCocoaViewContainer              打包Cocoa视图类的Moc  OS X 的控件
+    QMacNativeWidget                    提供根据Qt构成方式，将Qt控件添加到Cocoa各级结构方法的控件
+
+
+    model = new QStandardItemModel;
+
+    name = new QStandardItem("Name");
+    firstName = new QStandardItem("First Name");
+    lastName = new QStandardItem("Last Name");
+
+    name->appendRow(firstName);
+    name->appendRow(lastName);
+    model->appendRow(name);
+
+    columnView = new QColumnView;
+    columnView->setModel(model);
+
+    QStringList items;
+    items << tr("Home") << tr("Work") << tr("Other");
+    typeModel = new QStringListModel(items,this);
+
+    model = new QStandardItemModel(5,3,this);
+    QStringList names;
+    names << "Alice" << "Bob" << "Carol" << "Donald" << "Emma";
+    QStringList type;
+    type << "0" << "1" << "2" << "0" << "2";
+
+    mapper = new QDataWidgetMapper(this);
+    mapper->setModel(model);
+    mapper->addMapping(nameEdit,0);
+
+    QHBoxLayout *layout = new QHBoxLayout;
+
+//    QWidget *canvas = new QWidget;
+    QSlider *slider = new QSlider;
+
+    slider->setMinimum(0);
+    slider->setMaximum(100);
+    slider->setValue(50);
+
+    setLayout(layout);
+
+    QPixmap pixmap;
+    if(!pixmap.load(":/resources/fish.png"))
+    {
+        qDebug() << "Fatal error ： Unable to load image";
+        exit(-1);
+    }
+
+    connect(slider,SIGNAL(valueChanged(int)),SLOT(setZoom(int)));
+
+    QDesktopWidget desk;
+    px_width = desk.width();
+    px_height = desk.height();
+
+
+    calendar = new QCalendarWidget(this);
+    calendar->setGridVisible(true);
+    calendar->setMinimumDate(QDate(2019,12,18));
+    calendar->setMaximumDate(QDate(2020,1,1));
+    calendar->adjustSize();
+
+    QCalendarWidget::SingleLetterDayNames           1           显示星期首字母
+    QCalendarWidget::ShortDayNames                  2           显示星期缩写
+    QCalendarWidget::LongDayNames                   3           显示星期完整拼写
+    QCalendarWidget::NoHorizontalHeader             0           不水平显示标题行
+    QCalendarWidget::NoSelection                    0           设置不能选择日期
+    QCalendarWidget::SingleSelection                1           设置可以选择日期
+      不
+*/
+
+    /*
+    QInputDialog            用户可以输入值的对话框;
+    QColorDialog            可以选择指定颜色的对话框;
+    QFileDialog             提供选择文件或目录的GUI 的对话框
+    QFontDialog             选择字体的对话框;
+    QMessageBox             模式对话框，通过主窗口传送用户所选项目的返回值
+    QProgressDialog         显示百分比进度的对话框;
+
+    bool retValue;
+    int i = QInputDialog::getInt(this,tr("QInputDialog::getInteger()"),tr("Percengage:"),25,0,100,1,&retValue);//参数：指定父类，窗体的标题栏题目，输入值控件项目的标签，设定值，输入值的范围（两个参数），对话框旋转框的STEP，是否在对话框中点击
+
+    if(retValue)
+            qDebug("true,%d",i);
+    else
+            qDebug("false,%d",i);
+
+    bool ok;
+    double d = QInputDialog::getDouble(this,tr("QInputDialog::getDouble()"),tr("Amount:"),48.56,-100,100,2,&ok);
+    if(ok)
+        edit1->setText(QString("$%1").arg(d));
+
+    QStringList items;
+    items << tr("Spring") << tr("Summer") << tr("Fail") << tr("Winter");
+
+    bool ok;
+    QString item = QInputDialog::getItem(this,tr("QInputDialog::getItem()"),tr("Season:"),items,0,false,&ok);
+
+    if(ok&&!item.isEmpty())
+         edit1->setText(item);
+
+    bool ok;
+    QString text = QInputDialog::getText(this,tr("QInputDialog::getText()"),tr("User name:"),QLineEdit::Normal,QDir::home().dirName(),&ok);
+
+    if(ok && !text.isEmpty())
+        edit1->setText(text);
+
+    QColor color;
+    color = QColorDialog::getColor(Qt::green,this,"Select Color",QColorDialog::DontUseNativeDialog);
+
+    if(color.isValid())
+    {
+        edit1->setText(color.name());
+        edit1->setPalette(QPalette(color));
+        edit1->setAutoFillBackground(true);
+    }
+
+
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok,QFont("Courier 10 Pitch"),this);
+
+    if(ok)
+    {
+        edit1->setText(font.key());
+        edit1->setFont(font);
+    }
+
+
+    QFileDialog::Options options;
+    options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+
+    options |= QFileDialog::DontUseNativeDialog;
+    QString directory = QFileDialog::getExistingDirectory(this,tr("QFileDialog::getExistingDirectory()"),"/home",options);//参数：指定父类，文件对话框的标题栏题目，指定目录默认目录，对利用文件对话框的常量值进行过滤的option值
+
+
+
+    QFileDialog::ShowDirsOnly           0 X 00000001        只显示目录
+    QFileDialog::DontResolveSymlinks    0 X 00000002        不显示符号链接
+    QFileDialog::DontConfirmOverwrite   0 X 00000004        覆写现存文件时，不显示警告信息
+    QFileDialog::DontUseNativeDialog    0 X 00000010        不使用系统默认文件对话框
+    QFileDialog::ReadOnly               0 X 00000020        使用只读模式文件对话框
+    QFileDialog::HideNameFilterDetails  0 X 00000040        使用过滤器隐藏文件
+
+
+    QFileDialog::Options options;
+    options |= QFileDialog::DontUseNativeDialog;
+
+//    QString selectedFilter;
+//    QString fileName = QFileDialog::getOpenFileName(this,tr("QFileDialog::getOpenFileName()"),"/",tr("All Files(*);;Text Files(*.txt)"),&selectedFilter,options);
+
+
+    QString selectedFilter;
+    QStringList files = QFileDialog::getOpenFileNames(this,tr("QFileDialog::getOpenFileName()"),"/",tr("All Files(*);;Text Files (*.txt)"),&selectedFilter,options);
+
+    QFileDialog::Options options;
+    options |= QFileDialog::DontUseNativeDialog;
+
+    QString selectedFilter;
+    QString fileName = QFileDialog::getSaveFileName(this,tr("QFileDialog::getSaveFileName()"),"test.txt",tr("All Files(*);;Text Files(*.txt)"),&selectedFilter,options);
+
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::critical(this,tr("QMessageBox::critical()"),"There is no a disk.",QMessageBox::Abort | QMessageBox::Retry | QMessageBox::Ignore);
+    //  critical是为了使用警告消息框而提供的模式对话框，参数：指定父类，消息框的标题栏题目，可以输入消息对话框的内容，布局到对话框上的按钮。
+    if(reply == QMessageBox::Abort)
+        edit1->setText(tr("Abort"));
+    else if(reply == QMessageBox::Retry)
+        edit1->setText(tr("Retry"));
+    else
+        edit1->setText(tr("Ignore"));
+
+    QMessageBox::Ok                     0 X 00000400        Ok按钮
+    QMessageBox::Open                   0 X 00002000        打卡文件按钮
+    QMessageBox::Save                   0 X 00000800        保存按钮
+    QMessageBox::Cancel                 0 X 00400000        取消按钮
+    QMessageBox::Close                  0 X 00200000        关闭按钮
+    QMessageBox::Discard                0 X 00800000        不保存且放弃按钮
+    QMessageBox::Apply                  0 X 02000000        请求按钮
+    QMessageBox::Reset                  0 X 04000000        重置按钮
+    QMessageBox::RestoreDefaults        0 X 08000000        重新报错按钮
+    QMessageBox::Help                   0 X 01000000        帮助按钮
+    QMessageBox::SaveAll                0 X 00001000        全部报存按钮
+    QMessageBox::Yes                    0 X 00004000        YES按钮
+    QMessageBox::YesToAll               0 X 00008000        全部执行YES按钮
+    QMessageBox::No                     0 X 00010000        NO按钮
+    QMessageBox::NoToAll                0 X 00020000        全部指向NO 按钮
+    QMessageBox::Abort                  0 X 00040000        停止按钮
+    QMessageBox::Retry                  0 X 00080000        重试按钮
+    QMessageBox::Ignore                 0 X 00100000        忽略按钮
+    QMessageBox::NoButton               0 X 00000000        无效按钮
+
+
+
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::information(this,tr("QMessageBox::information()"),"I am a Qt Developer.\
+                                                  I Love Qt");
+
+    if(reply == QMessageBox::Ok)
+        edit1->setText(tr("OK"));
+    else
+        edit1->setText(tr("Escape"));
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this,tr("QMessageBox::question()"),"Do you save this file?",QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+
+    if(reply == QMessageBox::Yes)
+        edit1->setText(tr("Yes"));
+    else if(reply == QMessageBox::No)
+        edit1->setText(tr("No"));
+    else
+        edit1->setText(tr("Cancel"));
+
+
+    QMessageBox msgBox(QMessageBox::Warning,tr("QMessageBox::warning()"),"you save this file?",0,this);
+    msgBox.addButton(tr("Save &Again"),QMessageBox::AcceptRole);
+    msgBox.addButton(tr("&Continue"),QMessageBox::RejectRole);
+
+    if(msgBox.exec() == QMessageBox::AcceptRole)
+        edit1->setText(tr("Save Again"));
+    else
+        edit1->setText(tr("continue"));
+    //第一个参数选择QMessageBox 上显示的图标
+    QMessageBox::Nolcon             0           不使用图标
+    QMessageBox::Question           4           使用Question图标
+    QMessageBox::Information        1           使用Information图标
+    QMessageBox::Warning            2           使用Warning图标
+    QMessageBox::Critical           3           使用Critical图标*/
+
+
 }
 
 

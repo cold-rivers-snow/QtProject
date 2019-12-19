@@ -35,6 +35,27 @@
 #include <QTabWidget>
 #include <QToolBar>
 #include <QAction>
+#include <QTabBar>
+#include <QToolBox>
+#include <QHBoxLayout>
+#include <QToolButton>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QBoxLayout>
+#include <QColumnView>
+#include <QStandardItemModel>
+#include <QStandardItem>
+#include <QDataWidgetMapper>
+#include <QStringListModel>
+#include <QDesktopWidget>
+#include <QCalendarWidget>
+#include <QInputDialog>
+#include <QDir>
+#include <QColorDialog>
+#include <QFontDialog>
+#include <QFileDialog>
+#include <QMessageBox>
+
 
 namespace Ui {
 class MainWindow;
@@ -83,7 +104,7 @@ private:
     QDial *dial[5];
     QSpinBox *spin[3];
     QDoubleSpinBox *doublepin[3];
-    QPushButton *btn[3];
+    QPushButton *btn[6];
     QFocusFrame *btn_frame;
     QFontComboBox *fontcombo[5];
     QLineEdit *edit[5],*edit1;
@@ -98,7 +119,19 @@ private:
     QSlider *slider[2];
     QTabWidget *tab;
     QWidget *browser_tab,*users_tab;
-
+    QTabBar *tabBar;    //图形绘制选项卡
+    QToolBox *box;  //特定选项卡
+    QHBoxLayout *lay,*hboxLayout;
+    QToolButton *button[3];//显示文本控件
+    QToolBar *tool;
+    QVBoxLayout *vboxlayout;
+    QGridLayout *gridLayout;
+    QStandardItemModel *model;
+    QStandardItem *name,*firstName,*lastName;
+    QColumnView *columnView;
+    QStringListModel *typeModel;
+    QDataWidgetMapper *mapper;
+    QCalendarWidget *calendar;
 };
 
 #endif // MAINWINDOW_H

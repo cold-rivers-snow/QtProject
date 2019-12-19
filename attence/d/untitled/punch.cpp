@@ -34,10 +34,13 @@ Punch::Punch(QDialog *parent) :
     punch->setText("打卡");
     punch->setFixedSize(100,100);
     connect(punch,&QPushButton::clicked,this,&Punch::punchslot);
-//    if(punch->clicked(false) && QTime::currentTime().toString() == "08:00")
-//    {
-//        insertSQL();
-//    }
+    btn = false;
+    qDebug() << QTime::currentTime().toString();
+    if(!btn && QTime::currentTime().toString() == "20:54:00")   //待解决时间问题
+    {
+        insertSQL();
+        qDebug("插入成功0");
+    }
 
     //查询按钮
     sel = new QPushButton(this);
@@ -59,6 +62,7 @@ void Punch::timerUpdate()
 void Punch::punchslot()
 {
     state = 1;
+    btn = true;
     insertSQL();
 }
 
@@ -127,3 +131,5 @@ void Punch::insertSQL()
     }
     qDebug("插入成功");
 }
+
+

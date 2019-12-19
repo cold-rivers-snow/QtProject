@@ -43,6 +43,7 @@ private:
     int state;              //获取打卡状态
     QString date;           //打卡日期
     QSqlQuery insertquery,query;        //数据库
+    bool btn;
 };
 
 

@@ -1,5 +1,4 @@
 #include "login.h"
-#include "attencesql.h"
 
 LoginForm::LoginForm(QDialog *parent) :
     QDialog(parent)

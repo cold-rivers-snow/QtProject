@@ -35,7 +35,7 @@ private:
     QPushButton *exitBtn;        //退出按钮
     QSqlDatabase m_db;          //数据库
     QSqlQuery *m_query;
-    //QSqlQuery query;            //数据库查询
+    QSqlQuery query;            //数据库查询
     QString name,passwd,id;        //数据库中的用户名和密码
 };
 
