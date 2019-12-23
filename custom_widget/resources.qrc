@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>Linux.jpg</file>
+        <file>ludashi.jpg</file>
+    </qresource>
+</RCC>

@@ -35,12 +35,13 @@ Punch::Punch(QDialog *parent) :
     punch->setFixedSize(100,100);
     connect(punch,&QPushButton::clicked,this,&Punch::punchslot);
     btn = false;
-    qDebug() << QTime::currentTime().toString();
-    if(!btn && QTime::currentTime().toString() == "20:54:00")   //待解决时间问题
-    {
-        insertSQL();
-        qDebug("插入成功0");
-    }
+
+    QTimer *time_clock=new QTimer(parent);
+
+    connect(time_clock,SIGNAL(timeout()),this,SLOT(timeinsert()));
+    time_clock->start(1000);
+
+
 
     //查询按钮
     sel = new QPushButton(this);
@@ -56,6 +57,15 @@ void Punch::timerUpdate()
 {
     dt->setDisplayFormat("yyyy-MM-dd hh:mm:ss ddd");
     dt->setDateTime(QDateTime::currentDateTime());
+}
+
+void Punch::timeinsert()
+{
+    if(!btn && QTime::currentTime().toString() == "15:27:00")
+    {
+        insertSQL();
+        qDebug("插入成功0");
+    }
 }
 
 //按钮的槽函数
@@ -115,10 +125,24 @@ void Punch::insertSQL()
         }
     }
     date = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    QString nowdate = QTime::currentTime().toString();
     qDebug() << insName << usrname << qid  << date << endl;
-    QString str = QString("insert into atwork (user_name, user_id, user_state,work_date) "
-                          "values('%1', '%2', '%3','%4')").arg(insName).arg(qid).arg(state).arg(date);  //向数据库中插入数据，最好不要让atwork为%1。
-
+    QString str;
+    if(nowdate <= "08:00:00")
+    {
+        str = QString("insert into atwork (user_name, user_id, user_state,work_date) "
+                              "values('%1', '%2', '%3','%4')").arg(insName).arg(qid).arg(state).arg(date);  //向数据库中插入数据，最好不要让atwork为%1。
+    }
+    if(nowdate >= "17:00:00")
+    {
+        str = QString("insert into offwork (user_name, user_id, user_state,work_date) "
+                              "values('%1', '%2', '%3','%4')").arg(insName).arg(qid).arg(state).arg(date);
+    }
+    if(nowdate > "08:00:00" && nowdate < "17:00:00")
+    {
+        QMessageBox::information(this,tr("提示"),tr("非打卡时间"));
+        return;
+    }
     bool ok = insertquery.exec(str);
     if(ok)
     {
@@ -131,5 +155,6 @@ void Punch::insertSQL()
     }
     qDebug("插入成功");
 }
+
 
 

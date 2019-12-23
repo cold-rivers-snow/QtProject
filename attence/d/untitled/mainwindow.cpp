@@ -4,7 +4,7 @@
 #include <QDateTime>
 #include <QString>
 #include <QTimer>
-#include<QDebug>
+#include <QDebug>
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -163,7 +163,7 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
-void MainWindow::setTabelH()
+void MainWindow::setTabelH()    //设置表头
 {
     ui->tableWidget->setRowCount(0);        //解决了多次重复点击按钮查询得到的结果重复增加行插入问题。
     ui->tableWidget->clearContents();
@@ -172,9 +172,10 @@ void MainWindow::setTabelH()
     ui->tableWidget->setWindowTitle("QTableWidget");
     ui->tableWidget->setColumnCount(4); //设置列数
     //ui->tableWidget->horizontalHeader()->setDefaultSectionSize(123.99);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); //表头自适应表的大小
+    //ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); //表头自适应表的大小
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);// 第 0 列自适应内容宽度
     QStringList header;
-    header<<tr("id")<<tr("姓名")<<tr("日期")<<tr("状态");
+    header<<tr("姓名")<<tr("id")<<tr("状态")<<tr("日期");
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
 }
@@ -197,22 +198,133 @@ void MainWindow::setTabel()
        tableWidget->setHorizontalHeaderLabels(header);
    */
 
+    QSqlDatabase db;
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+    db = QSqlDatabase::database("qt_sql_default_connection");
+    else
+    {
+        db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName("localhost");
+        db.setDatabaseName("attence");
+        db.setUserName("root");
+        db.setPassword("root");
+    }
+
+    if (!db.open())
+        qDebug() << "Failed to connect to root mysql admin";
+    else
+        qDebug() << "open";
+
+
+    insName = insertName;
+    QString tab_name = "user";
+    QString check = QString("select user_name,user_id from %1").arg(tab_name);
+    query.exec(check);
+    int qid;
+    while(query.next()){
+        usrname = query.value(0).toString();
+        id = query.value(1).toInt();
+        if(usrname == insName)
+        {
+            qid = id;
+            break;
+        }
+    }
+
+//    date = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    QString nowdate = QTime::currentTime().toString();
+    qDebug() << insName << usrname << qid  << nowdate << endl;
+
+     int i = 0, j = 0, nColumn, nRow;
+    QString str = QString("select count(*) as row from atwork where user_id = '%1'").arg(qid);
+    query.exec(str);
+    if(query.first())
+    {
+        nRow = query.value(0).toInt();
+        ui->tableWidget->setRowCount(nRow);
+    }
+    qDebug() << "nw" << nRow;
+
+    nColumn = ui->tableWidget->columnCount();
+
+    QString sql = QString("select * from atwork where user_id = '%1'").arg(qid);
+    query.exec(sql);
+    for(int i = 0; query.next(); i++)
+    {
+        for(int j = 0; j < nColumn; j++)
+        {
+            if(j == 2 && query.value(j).toInt() == 0)
+                ui->tableWidget->setItem(i,j, new QTableWidgetItem("未打卡"));
+            else if(j == 2 && query.value(j).toInt() == 1)
+                ui->tableWidget->setItem(i,j, new QTableWidgetItem("已打卡"));
+            else if(j == 3)
+            {
+                QString str = query.value(j).toString();
+                for(int i = 0;i < str.size();i++)
+                {
+                    if(str[i] == 'T')
+                        str[i] = ' ';
+                }
+                ui->tableWidget->setItem(i,j, new QTableWidgetItem(str));   //去'T'
+            }
+            else
+                ui->tableWidget->setItem(i,j, new QTableWidgetItem(query.value(j).toString()));
+
+
+            ui->tableWidget->item(i,j)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);    //内容居中显示
+        }
+    }
+
+    /*设置表格是否充满，即行末不留空*/    // 最后一列拉伸
+    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+
+    // 全部列自适应表格宽度
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);    //禁止编辑
+
+    /*设置tablewidget等宽*/
+//            QHeaderView* headerView = ui->tableWidget->horizontalHeader();
+//            headerView->setSectionResizeMode(QHeaderView::Stretch);
+    /*或者下面的代码*/
+//    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+//    qDebug() << "nrow" << nRow << "ncolumn" << nColumn;
+//    query.first();
+//    while(j < nRow)
+
+//    {
+//        for (i = 0; i< nColumn; i++)
+//            ui->tableWidget->setItem(j, i, new QTableWidgetItem(query.value(i).toString()));
+//        j++;
+//        query.next();
+//    }
+//    dbconn.close();
+//    while(query.next()){
+//        usrname = query.value(0).toString();
+//        id = query.value(1).toInt();
+
+//    }
+
+
+
 
        //ui->tableWidget->SetRowColItemText(0, 0, QStringLiteral("公里"));
-       int rowCount = ui->tableWidget->rowCount();
-       ui->tableWidget->insertRow(rowCount);
-       int id = 1,state = 1;
-       QString name = "zs",date = "1234";
-       ui->tableWidget->setItem(rowCount,0, new QTableWidgetItem(QString::number(id)));
-       ui->tableWidget->setItem(rowCount,1, new QTableWidgetItem(name));
-       ui->tableWidget->setItem(rowCount,2, new QTableWidgetItem(date));
-       ui->tableWidget->setItem(rowCount,3, new QTableWidgetItem(QString::number(state)));
+//       int rowCount = ui->tableWidget->rowCount();
+//       ui->tableWidget->insertRow(rowCount);
+//       int id = 1,state = 1;
+//       QString name = "zs",date = "1234";
+//       ui->tableWidget->setItem(rowCount,0, new QTableWidgetItem(QString::number(id)));
+//       ui->tableWidget->setItem(rowCount,1, new QTableWidgetItem(name));
+//       ui->tableWidget->setItem(rowCount,2, new QTableWidgetItem(date));
+//       ui->tableWidget->setItem(rowCount,3, new QTableWidgetItem(QString::number(state)));
 //       ui->tableWidget->setItem(0,1, new QTableWidgetItem(QIcon("images/data.png"), "data"));
 //       ui->tableWidget->setItem(1,1, new QTableWidgetItem(QIcon("images/decision.png"), "decision"));
 //       ui->tableWidget->setItem(2,1, new QTableWidgetItem(QIcon("images/document.png"), "document"));
 //       ui->tableWidget->setItem(3,1, new QTableWidgetItem(QIcon("images/printer.png"), "printer"));
 //       ui->tableWidget->setItem(4,1, new QTableWidgetItem(QIcon("images/process.png"), "process"));
        ui->tableWidget->show();
+
 }
 
 

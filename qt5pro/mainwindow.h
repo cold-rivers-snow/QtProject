@@ -55,6 +55,19 @@
 #include <QFontDialog>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDockWidget>
+#include <QListWidget>
+#include <QTextEdit>
+#include <QListView>
+#include <QTreeView>
+#include <QSplitter>
+#include <QFileSystemModel>
+#include <QStandardItemModel>
+#include <QBitArray>
+#include <QBrush>
+#include <QPainter>
+#include <QByteArray>
+
 
 
 namespace Ui {
@@ -93,6 +106,8 @@ private slots:
 
     //图标
     void trigger1();
+    void open();
+    void newFile();
 private:
     Ui::MainWindow *ui;
     QButtonGroup *chk_group[2];

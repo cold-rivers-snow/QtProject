@@ -1030,6 +1030,423 @@ MainWindow::MainWindow(QWidget *parent) :
     QMessageBox::Critical           3           使用Critical图标*/
 
 
+    /*
+    //创建菜单栏
+    QMenu *filemenu;
+    QAction *newAct;
+    QAction *openAct;
+
+    newAct = new QAction(QIcon("./images/new.png"),tr("&New"),this);
+    newAct->setShortcuts(QKeySequence::New);
+    newAct->setStatusTip(tr("Create a new file"));
+    connect(newAct,SIGNAL(triggered()),this,SLOT(newFile()));
+
+    openAct = new QAction(QIcon("./images/open.png"),tr("&Open..."),this);
+    openAct->setShortcuts(QKeySequence::Open);
+    openAct->setStatusTip(tr("Open an existing file"));
+    connect(openAct,SIGNAL(triggered()),this,SLOT(open()));
+
+    filemenu = menuBar()->addMenu(tr("&File"));
+    filemenu->addAction(newAct);
+    filemenu->addAction(openAct);
+
+    //创建工具栏
+    QToolBar *fileToolBar;
+    fileToolBar = addToolBar(tr("File"));
+    fileToolBar->addAction(newAct);
+    fileToolBar->addAction(openAct);
+
+    //创建锚接控件
+    QDockWidget *dock = new QDockWidget(tr("Target"),this);
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+
+    QListWidget *customerList = new QListWidget(dock);
+    customerList->addItems(QStringList() << "One" << "Two" << "Three" << "Four" << "Five");
+    dock->setWidget(customerList);
+    addDockWidget(Qt::RightDockWidgetArea,dock);
+
+    //创建中心控件
+    QTextEdit *textEdit = new QTextEdit;
+    setCentralWidget(textEdit);
+
+    //添加状态栏
+    statusBar()->showMessage(tr("Ready"));
+    */
+
+    /*
+    模型/视图结果各控件及含义
+
+            控件                  说明
+            QListView           列表显示数据的控件
+            QTableView          实现表格视图的模型/视图
+            QTreeView           实现树形视图的模型/视图
+
+    QAbstractItemModel 是所有模型类的基类
+
+            模型                       说明
+            QStringListMode            保存QString数据类型的单一数据列表的类
+            QStandardItemModel          通过树形视图提供读取的任意数据的类
+            QFileSystemMode             提供文件系统中的文件和目录信息的类
+            QSqlQueryModel              通过模型类存取数据库信息的类
+            QSqlTableModel
+            QSqlRelationalTableModel
+    */
+
+
+    /*
+    resize(600,300);
+    QSplitter *splitter = new QSplitter(this);
+
+    //Model类
+    QFileSystemModel *model = new QFileSystemModel(this);
+    model->setRootPath(QDir::currentPath());
+
+    //view控件
+    QTreeView *tree = new QTreeView(splitter);\
+    tree->adjustSize();
+    tree->setModel(model);
+    tree->setRootIndex(model->index(QDir::currentPath()));
+
+
+    QListView *list = new QListView(splitter);
+    list->adjustSize();
+    list->setModel(model);
+    list->setRootIndex(model->index(QDir::currentPath()));
+
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->addWidget(splitter);
+    setLayout(layout);
+
+    //QListView
+    QStringList strList;
+    strList << "Monday" << "Tuesday" << "Wedneday" <<"Thurday" << "Friday";
+
+    QAbstractItemModel *model1 = new QStringListModel(strList);
+
+    QListView *view = new QListView();
+    view->setModel(model1);
+
+    QModelIndex index = model1->index(3,0);
+    QString text = model1->data(index,Qt::DisplayRole).toString();
+
+    QLabel *lb1 = new QLabel("");
+    lb1->setText(text);
+
+    QVBoxLayout *lay = new QVBoxLayout();
+    lay->addWidget(view);
+    lay->addWidget(lb1);
+
+    setLayout(lay);
+
+
+
+    //QTableView
+
+    model1->setHeaderData(0,Qt::Horizontal,QObject::tr("Subject"));
+    model1->setHeaderData(1,Qt::Horizontal,QObject::tr("Description"));
+    model1->setHeaderData(2,Qt::Horizontal,QObject::tr("Date"));
+
+    model1->setVerticalHeaderItem(0,new QStandardItem("Col 1"));
+    model1->setVerticalHeaderItem(1,new QStandardItem("Col 2"));
+    model1->setVerticalHeaderItem(2,new QStandardItem("Col 3"));
+
+    model1->setData(model->index(0,0),"Monitor");
+    */
+
+    /*
+    //基本数据类型
+    //类型                大小（bit)             说明
+    bool                    8                   true/false
+    qint8                   8                   signed char
+    qint16                  16                  signed short
+    qint32                  32                  signed int
+    qint64                  64                  long long int
+    quint8                  8                   unsigned char
+    quint16                 16                  unsigned short
+    quint32                 32                  unsigned int
+    quint64                 64                  unsigned long long int
+    float                   32
+    double                  64
+    const char*             32
+
+
+    //数据类
+    类                                   说明
+    QBitArray                           提供位运算的数组
+    QBrush                              定义QPainter绘制图形的填充模式
+    QByteArray                          字节数组的类
+    QColor
+    QCursor                     定义鼠标光标的图象类
+    QDate
+    QDateTime
+    QEasingCurve                控制GUI动画运行模式的数据类
+    QFont
+    QIcon
+    QImage
+    QKeySequence                指定快捷键的类
+    QMargins                    定义矩形外边距量
+    QMatrix                     为改变2D而定义的类
+    QMatrix4x4                  为改变3D4X4而定义的类
+    QPalette                    包含各控件状态的颜色组的类
+    QPen
+    QPicture
+    QPixmap
+    QPoint
+    QQuaternion                 出来向量和标量构成的四元数的类
+    QRect
+    QRegExp                     出理正则表达式的类
+    QRegularExpression
+    QRegion
+    QSize
+    QString
+    QTime
+    QTransform                  出理图象描绘大小、剪切旋转坐标等类
+    QUrl
+    QVariant
+    QVector2D
+    QVector3D
+    QVector4D
+
+    //容器类
+    QHash<key,T>
+    QMap<key,T>
+    QPair<T1,T2>
+    QList<T>
+    QLinkedList<T>
+    QVector<T>
+    QStack<T>
+    QQueue<T>
+    QSet<T>
+    QMap<key,T>
+    QMultiMap<Key,T>
+    QMultiHash<Key,T>
+
+
+     //字符串类
+    QByteArray
+    QByteArrayMatcher
+    QChar
+    QLatin1CharQLatin1String
+    QLocale
+    QString
+    QStringList
+    QStringMatcher
+    QStringRef
+    QTextBoundayFinder
+    QTextStream
+     */
+
+    /*
+    //返回绝对值函数
+    int absoluteValue;
+    int myValue = -4;
+
+    absoluteValue = qAbs(myValue);  //4
+
+    //返回最大值和最小值函数
+    int minValue = 2;
+    int myValue = 10;
+    int maxValue = 6;
+
+    int boundedValue = qBound(minValue,myValue,maxValue);  //6
+
+    //处理Critical消息的函数
+    void load(const QString &fileName)
+    {
+        QFile file(firstName);
+        if(!file.exists())
+            qCritical("File '%s' does not exist！",qPrintable(firstName));
+    }
+
+
+    //输出调试信息函数
+    //qDebug("Items in list: %d",myList.size());
+
+    //出来错误信息的函数
+    int divide(int a,int b)
+    {
+        if(b == 0)
+            qFatal("divide: cannot divide by zero");
+        return a / b;
+    }
+
+    //比较浮点值函数
+    qFuzzyCompare(0.0,1.0e-200);        //return false
+    qFuzzyCompare(1+0.0,1+1.0e-200);        //return true
+
+    //比较浮动型值的函数，相同true，不同false  bool qFuzzyCompare(float p1,float p2)
+
+    //用户自定义函数，输出Qt定义的调试、预警、严重等信息。
+    void myMessageOutput(QtMsgType type,const char *msg)
+    {
+        switch(type){
+        case QtDebugMsg:
+            fprintf(stderr,"Debug:%s\n",msg);
+            break;
+        case QtWarningMsg:
+            fprintf(stderr,"Warning:%s\n",msg);
+            break;
+        case QtCriticalMsg:
+            fprintf(stderr,"Critical:%s\n",msg);
+            break;
+        case QtFatalMsg:
+            fprintf(stderr,"Fatal:%s\n",msg);
+            break;
+            abort();
+        }
+    }
+
+    int main()
+    {
+        qInstallMessageHandler(myMessageOutput);
+        ...
+    }
+
+    */
+
+    /*
+    //返回两个值中最大值
+    int myValue = 6,yourValue = 4;
+    int maxValue = qMax(myValue,yourValue); //6
+
+    //返回两个值中最小值
+    int minValue = qMin(myValue,yourValue); //4
+
+    //64位整型四舍五入函数
+    qreal ValueA = 42949672960.3;
+    qreal ValueB = 42949672960.7;
+    int roundValueA = qRound(ValueA);       //42949672960
+    int roundValueB = qRound(ValueB);       //42949672961
+
+    //整型四舍五入函数
+    qreal ValueA = 2.3;
+    qreal ValueB = 2.7;
+    int roundValueA = qRound(ValueA);       //2
+    int roundValueB = qRound(ValueB);       //3
+    */
+
+    QBitArray ba(200);
+
+    ba.resize(3);
+    ba[0] = true;
+    ba[1] = false;
+    ba[2] = true;
+
+    QBitArray x(5);
+    x.setBit(3,true);   //x:[0,0,0,1,0]
+
+    QBitArray y(5);
+    y.setBit(4,true);   //x:[0,0,0,0,1]
+
+    x |= y; //x:[0,0,0,1,1]
+
+    QBitArray().isNull();
+    QBitArray().isEmpty();
+
+    QBitArray bc(8);
+    bc.fill(8);//x:[1,1,1,1,1,1,1,1]
+
+    bc.fill(false,2);//ba:[0,0]
+
+    //QBrush 用于QPainter的图形填充模式
+    QPainter painter(this);
+
+    painter.setBrush(Qt::cyan);
+    painter.setPen(Qt::darkCyan);
+    painter.drawRect(0,0,100,100);
+
+    painter.setBrush(Qt::NoBrush);
+    painter.setPen(Qt::darkGreen);
+    painter.drawRect(40,40,100,100);
+
+    QByteArray bba("hello");
+
+    bba.resize(5);
+    bba[0] = 0x3c;
+    bba[1] = 0xb8;
+    bba[2] = 0x64;
+    bba[3] = 0x18;
+    bba[4] = 0xca;
+
+    for(int i = 0;i < bba.size();i++)
+    {
+        if(bba.at(i) >= 'a' && bba.at(i) <= 'f')
+           qDebug() << "Found character in range [a-f]" << endl;
+    }
+
+    QByteArray ba1("ca\0r\0t");
+    ba1.size();     //2
+    ba1.constData();  //"ca"
+
+    QByteArray ba2("ca\0r\0t",3);
+    ba2.size();     //3
+    ba2.constData();  //"ca\0"
+
+    QByteArray ba3("ca\0r\0t",4);
+    ba3.size();     //4
+    ba3.constData();  //"ca\0\r"
+
+    const char cart[] = {'c','a','\0','r','\0','t'};
+
+    QByteArray ba4(QByteArray::fromRawData(cart,6));
+    ba4.size();     //6
+    ba4.constData();  //"ca\0r\0t"
+
+    QByteArray x1("and");
+    x1.prepend("rock"); //x1 = "rock and"
+    x1.append("roll");//x1 = "rock and roll"
+    x1.replace(5,3,"&");    //x1 = "rock & roll"
+
+    QByteArray baa("We must be <b>bold</b>,very <b>bold</b>");
+    int j = 0;
+    while((j = baa.indexOf("<b>",j)) != -1) //从头开始查找特定字符，lastIndexOf()从尾部开始查找。
+    {
+        qDebug() << "Found <b> tag at index position" << j << endl;
+        ++j;
+    }
+
+    QByteArray().isNull();
+    QByteArray().isEmpty();
+
+    QByteArray baaa("STARTTLS\r\n");    //chop函数参数int值，表示该字符串末尾长度
+    baaa.chop(2);   //ba == "STARTTLS"
+
+
+    QByteArray ba5("Istambul");
+    ba5.fill('o');//ba5 = "oooooooo"
+
+    ba5.fill('X',2);//ba5 = "XX"
+
+    QByteArray text = QByteArray::fromBase64("UXQgaXMgZ3J1YXQh");
+    text.data();//"Qt is great!"
+
+    QByteArray text1 = QByteArray::fromHex("517420697320677265617421");
+    text1.data();//"Qt is great!"
+
+    QByteArray text2 = QByteArray::fromPercentEncoding("Qt%20is%20great%33");
+    text2.data();//"Qt is great!"
+
+    QByteArray xx1("Pineapple");
+    QByteArray y1 = xx1.left(4);//"Pine"
+
+    QByteArray xx11("apple");
+    QByteArray y11 = xx11.leftJustified(8,'.');//"apple..."
+
+    QByteArray xxx("Say yes!");
+    QByteArray yyy("no");
+    xxx.replace(4,3,yyy); //"Say no!
+
+    QByteArray str("FF");
+    bool ok;
+    int hex = str.toInt(&ok,16);    //hex = 255,ok = true;
+    int dec = str.toInt(&ok,10);    //hex = 0,ok = false;
+
+
+    QByteArray xxxx("Qt by DIGIA");
+    QByteArray yyyy = xxxx.toLower();   //"qt by digia"
+
+
 }
 
 
@@ -1138,4 +1555,14 @@ void MainWindow::currentTab(int index)
 void MainWindow::trigger1()
 {
     qDebug("Tool Button 1 click:");
+}
+
+void MainWindow::open()
+{
+
+}
+
+void MainWindow::newFile()
+{
+
 }

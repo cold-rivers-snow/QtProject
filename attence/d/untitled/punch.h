@@ -31,6 +31,7 @@ public slots:
     void punchslot();//点击打卡按钮是执行的槽函数
     void selslot(); //点击查询按钮执行槽函数
     void timerUpdate();
+    void timeinsert();
 private:
     QLabel *timenow;         //现在时间 标签
     QPushButton *punch;       //打卡按钮

@@ -57,7 +57,7 @@ public:
         pushButton->setGeometry(QRect(780, 30, 111, 81));
         tableWidget = new QTableWidget(centralWidget);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(30, 120, 821, 371));
+        tableWidget->setGeometry(QRect(10, 120, 901, 361));
         dateTimeEdit_2 = new QDateTimeEdit(centralWidget);
         dateTimeEdit_2->setObjectName(QStringLiteral("dateTimeEdit_2"));
         dateTimeEdit_2->setGeometry(QRect(460, 30, 281, 31));

@@ -2,6 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlDriver>
+#include <QtSql/QSqlError>
+#include <QSqlQuery>
+#include "ext.h"
+#include <QHeaderView>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +30,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QString insName;
+    QSqlQuery query;        //数据库
+    QString usrname;   //获取用户名
+    int id;                 //获取id
+    QString date;           //打卡日期
 };
 
 #endif // MAINWINDOW_H
