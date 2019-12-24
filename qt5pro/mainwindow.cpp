@@ -1326,6 +1326,7 @@ MainWindow::MainWindow(QWidget *parent) :
     int roundValueB = qRound(ValueB);       //3
     */
 
+    /*
     QBitArray ba(200);
 
     ba.resize(3);
@@ -1445,6 +1446,96 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QByteArray xxxx("Qt by DIGIA");
     QByteArray yyyy = xxxx.toLower();   //"qt by digia"
+
+
+    painter.setBrush(QColor(255,0,0,127));
+    painter.drawRect(0,0,width()/2,height());
+
+    //QCursor将鼠标光标指定为任意形状。
+
+    QDate d1(1995,5,17);
+    QDate d2(1995,5,20);
+
+    d1.daysTo(d2);  //3
+    d2.daysTo(d1);  //-3
+
+    QDate d3 = QDate::currentDate();
+
+    int day = d3.dayOfWeek();
+
+    QTime time1 = QTime::fromString("131","HHh");
+
+    QDateTime dateTime2 = QDateTime::fromString("M1d1y9800:01:02","'M'M'd'd'y'yyhh:mm:ss");
+
+    QPropertyAnimation animation;
+    animation.setStartValue(0);
+    animation.setEndValue(1000);
+    animation.setDuration(1000);
+    animation.setEasingCurve(QEasingCurve::InOutQuad);
+
+    QFont serifFont("Times",10,QFont::Bold);
+    QFont sansFont("Helvetica [Cronyx]",12);
+
+    QToolButton *button = new QToolButton;
+    button->setIcon(QIcon("open.xpm"));
+
+//    QKeySequence 指定快捷键
+
+//    QMarigns 指定矩形边距值
+    */
+
+
+
+    QFile data("output.txt");       //QFile继承于QFileDevice
+    if(data.open(QFile::WriteOnly | QFile::Truncate))
+    {
+        QTextStream out(&data);
+        out << "Result:" << qSetFieldWidth(10) << left << 3.14 << 2.7;
+    }
+
+    //直接在文件中记录数据
+    QFile file("in.txt");
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    while(!file.atEnd())
+    {
+        QByteArray line = file.readLine();
+        //process_line(line);
+        qDebug() << line;
+    }
+
+    //使用流读取文件内容
+
+    QTextStream in(&file);
+    while(!in.atEnd())
+    {
+        QString line = in.readLine();
+        //process_line(line);
+        qDebug() << line;
+    }
+
+    //attend()判断文件是否结束
+
+    //将文件数据记录到<<运算符使用
+    QFile file1("out.txt");
+    if(!file1.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+    QTextStream out(&file1);
+    out << "The magic number is :" << 49 << "\n";
+
+    QFile file2("/proc/modules");
+    if(!file2.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in1(&file2);
+    QString line = in1.readLine();
+    while(!line.isNull())
+    {
+        //process_line(line);
+        qDebug() << line;
+        line = in.readLine();
+    }
 
 
 }

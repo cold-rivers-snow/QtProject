@@ -67,7 +67,13 @@
 #include <QBrush>
 #include <QPainter>
 #include <QByteArray>
-
+#include <QCursor>
+#include <QPropertyAnimation>
+#include <QFile>
+#include <QTextStream>
+#include <QDataStream>
+#include <QProcess>
+#include <QFileDevice>
 
 
 namespace Ui {
