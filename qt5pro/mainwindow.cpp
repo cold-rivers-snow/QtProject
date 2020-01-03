@@ -1486,6 +1486,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
+    /*
     QFile data("output.txt");       //QFile继承于QFileDevice
     if(data.open(QFile::WriteOnly | QFile::Truncate))
     {
@@ -1536,8 +1537,129 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug() << line;
         line = in.readLine();
     }
+    */
 
+    /*
+    QList<QString> list;
+    list<<"ABCF" <<"EFGH"<<"HIJK" <<"LMNO";
 
+    QListIterator<QString> i(list);
+    while(i.hasNext())
+    {
+        qDebug() << i.next();
+    }
+
+    QListIterator<QString> i1(list);
+    i1.toBack();
+    while(i1.hasPrevious())
+    {
+        qDebug() << i1.previous();
+    }
+
+    //QListIterator  不提供插入和删除操作
+    //如果删除，使用QMutableListIterator
+    QList<int> in;
+    in<< 1 <<2<<3 <<4;
+    QMutableListIterator<int> i2(in);
+    while(i2.hasNext())
+    {
+        if(i2.next()%2==0)
+            i2.remove();
+        qDebug() << i2.next();
+    }
+
+    QMap<QString,QString>  map;
+    map.insert("Pairs","France");
+    map.insert("Paris","France");
+    map.insert("Moscow","Russia");
+
+    QMutableMapIterator<QString,QString> i4(map);
+    while(i4.hasNext())
+    {
+        if(i4.next().key().endsWith("City"))
+            i4.remove();
+//        qDebug() << i4.next().key();
+    }
+
+    QMap<int,QWidget*> map1;
+    QHash<int,QWidget*> hash;
+
+    QMapIterator<int,QWidget*> i5(map1);
+    while(i5.hasNext())
+    {
+        i5.next();
+        hash.insert(i5.key(),i5.value());
+    }
+
+    QMutableMapIterator<int,QWidget*> i6(map1);
+    while(i6.findNext(widget))
+    {
+        i6.remove();
+    }
+    */
+
+    QList<QString> list;
+    list<<"ABCF" <<"EFGH"<<"HIJK" <<"LMNO";
+
+    QList<QString>::iterator i;
+    for(i = list.begin();i != list.end();i++)
+    {
+       *i = (*i).toLower();
+    }
+
+    QList<QString>::const_iterator i1;
+    for(i = list.begin();i != list.end();i++)
+    {
+        qDebug() << *i;
+    }
+
+    QMap<int,int> map;
+    map.insert(1,3);
+    map.insert(2,4);
+    map.insert(6,5);
+
+    QMap<int,int>::const_iterator i2;
+    for(i2 = map.constBegin();i2 != map.constEnd();++i)
+    {
+        qDebug() << i2.key() << ":" << i2.value();
+    }
+
+    QLinkedList<QString> list1;
+    list << "1" << "2";
+    QString str;
+    foreach (str,list1) {
+        qDebug() << str;
+    }
+
+    QLinkedListIterator<QString> i3(list1);
+    while(i3.hasNext())
+    {
+        qDebug() << i3.next();
+    }
+
+    foreach(const QString &str,list1)
+    {
+        if(str.isEmpty())
+            break;
+        qDebug() << str;
+    }
+
+    foreach(const int &a,map)
+    {
+        qDebug() << a << ":" << map.value(a);
+    }
+
+    QMultiMap<int,int> mmap;
+    mmap.insert(1,3);
+    mmap.insert(2,4);
+    mmap.insert(6,5);
+    foreach(const int& b,mmap.uniqueKeys())
+    {
+        foreach(int i,map.value(b))
+        {
+            qDebug() << b << ":" << i;
+        }
+    }
 }
 
 

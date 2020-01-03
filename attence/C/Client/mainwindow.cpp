@@ -266,6 +266,8 @@ void MainWindow::setTabel()
                 ui->tableWidget->setItem(i,j, new QTableWidgetItem("未打卡"));
             else if(j == 2 && query.value(j).toInt() == 1)
                 ui->tableWidget->setItem(i,j, new QTableWidgetItem("已打卡"));
+            else if(j == 2 && query.value(j).toInt() == 2)
+                ui->tableWidget->setItem(i,j, new QTableWidgetItem("请假"));
             else if(j == 3)
             {
                 QString str = query.value(j).toString();

@@ -54,21 +54,25 @@ SOURCES       = ../../S/Server/main.cpp \
 		../../S/Server/mainwindow.cpp \
 		../../S/Server/login.cpp \
 		../../S/Server/mainfrom.cpp \
+		../../S/Server/modelpunch.cpp \
 		../../S/Server/punch.cpp \
 		../../S/Server/attencesql.cpp \
 		../../S/Server/ext.cpp moc_mainwindow.cpp \
 		moc_mainfrom.cpp \
+		moc_modelpunch.cpp \
 		moc_punch.cpp \
 		moc_login.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		login.o \
 		mainfrom.o \
+		modelpunch.o \
 		punch.o \
 		attencesql.o \
 		ext.o \
 		moc_mainwindow.o \
 		moc_mainfrom.o \
+		moc_modelpunch.o \
 		moc_punch.o \
 		moc_login.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -150,6 +154,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../../S/Server/untitled.pro ../../S/Server/mainwindow.h \
 		../../S/Server/mainfrom.h \
+		../../S/Server/modelpunch.h \
 		../../S/Server/punch.h \
 		../../S/Server/login.h \
 		../../S/Server/attencesql.h \
@@ -157,6 +162,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../../S/Server/mainwindow.cpp \
 		../../S/Server/login.cpp \
 		../../S/Server/mainfrom.cpp \
+		../../S/Server/modelpunch.cpp \
 		../../S/Server/punch.cpp \
 		../../S/Server/attencesql.cpp \
 		../../S/Server/ext.cpp
@@ -168,7 +174,7 @@ TARGET        = untitled
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_modelpunch.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../S/Server/untitled.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -351,9 +357,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../S/Server/mainwindow.h ../../S/Server/mainfrom.h ../../S/Server/punch.h ../../S/Server/login.h ../../S/Server/attencesql.h ../../S/Server/ext.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../S/Server/main.cpp ../../S/Server/mainwindow.cpp ../../S/Server/login.cpp ../../S/Server/mainfrom.cpp ../../S/Server/punch.cpp ../../S/Server/attencesql.cpp ../../S/Server/ext.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../S/Server/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../S/Server/mainwindow.h ../../S/Server/mainfrom.h ../../S/Server/modelpunch.h ../../S/Server/punch.h ../../S/Server/login.h ../../S/Server/attencesql.h ../../S/Server/ext.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../S/Server/main.cpp ../../S/Server/mainwindow.cpp ../../S/Server/login.cpp ../../S/Server/mainfrom.cpp ../../S/Server/modelpunch.cpp ../../S/Server/punch.cpp ../../S/Server/attencesql.cpp ../../S/Server/ext.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../S/Server/mainwindow.ui ../../S/Server/modelpunch.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -385,9 +391,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_mainfrom.cpp moc_punch.cpp moc_login.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_mainfrom.cpp moc_modelpunch.cpp moc_punch.cpp moc_login.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_mainfrom.cpp moc_punch.cpp moc_login.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_mainfrom.cpp moc_modelpunch.cpp moc_punch.cpp moc_login.cpp
 moc_mainwindow.cpp: ../../S/Server/ext.h \
 		../../S/Server/mainwindow.h \
 		moc_predefs.h \
@@ -398,6 +404,11 @@ moc_mainfrom.cpp: ../../S/Server/mainfrom.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/itcast/work/qt/attence/S/Server -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../S/Server/mainfrom.h -o moc_mainfrom.cpp
+
+moc_modelpunch.cpp: ../../S/Server/modelpunch.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/itcast/work/qt/attence/S/Server -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../S/Server/modelpunch.h -o moc_modelpunch.cpp
 
 moc_punch.cpp: ../../S/Server/mainwindow.h \
 		../../S/Server/ext.h \
@@ -415,12 +426,16 @@ moc_login.cpp: ../../S/Server/ext.h \
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_mainwindow.h ui_modelpunch.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_mainwindow.h ui_modelpunch.h
 ui_mainwindow.h: ../../S/Server/mainwindow.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../../S/Server/mainwindow.ui -o ui_mainwindow.h
+
+ui_modelpunch.h: ../../S/Server/modelpunch.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../../S/Server/modelpunch.ui -o ui_modelpunch.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -451,6 +466,10 @@ login.o: ../../S/Server/login.cpp ../../S/Server/login.h \
 mainfrom.o: ../../S/Server/mainfrom.cpp ../../S/Server/mainfrom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainfrom.o ../../S/Server/mainfrom.cpp
 
+modelpunch.o: ../../S/Server/modelpunch.cpp ../../S/Server/modelpunch.h \
+		ui_modelpunch.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o modelpunch.o ../../S/Server/modelpunch.cpp
+
 punch.o: ../../S/Server/punch.cpp ../../S/Server/punch.h \
 		../../S/Server/mainwindow.h \
 		../../S/Server/ext.h \
@@ -468,6 +487,9 @@ moc_mainwindow.o: moc_mainwindow.cpp
 
 moc_mainfrom.o: moc_mainfrom.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainfrom.o moc_mainfrom.cpp
+
+moc_modelpunch.o: moc_modelpunch.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_modelpunch.o moc_modelpunch.cpp
 
 moc_punch.o: moc_punch.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_punch.o moc_punch.cpp

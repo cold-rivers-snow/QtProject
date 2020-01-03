@@ -74,6 +74,13 @@
 #include <QDataStream>
 #include <QProcess>
 #include <QFileDevice>
+#include <QList>
+#include <QListIterator>
+#include <QMutableListIterator>
+#include <QMap>
+#include <QMutableMapIterator>
+#include <QHash>
+#include <QLinkedList>
 
 
 namespace Ui {

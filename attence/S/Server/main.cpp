@@ -58,9 +58,9 @@ int main(int argc, char *argv[])
         return 0;
 
 
-    //打卡界面
+    //考勤界面
     Punch *p = new Punch();
-    p->setWindowTitle("打卡/查询系统");//设置窗体标题
+    p->setWindowTitle("考勤系统");//设置窗体标题
     p->setFixedSize(450,300);
     p->move ((QApplication::desktop()->width() - p->width())/2,(QApplication::desktop()->height() - p->height())/2);
     p->show();

@@ -4,6 +4,15 @@
 #include <QWidget>
 #include <QPainter>
 #include <QPointF>
+#include <QPen>
+#include <QPointF>
+#include <QBrush>
+#include <QPixmap>
+#include <QLinearGradient>
+#include <QPoint>
+#include <QRadialGradient>
+#include <QConicalGradient>
+#include <QImage>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }

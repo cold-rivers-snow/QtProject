@@ -16,14 +16,14 @@
 #include <QtSql/QSqlError>
 #include <QSqlQuery>
 #include <QDebug>
-
+#include "modelpunch.h"
 
 class Punch : public QDialog
 {
     Q_OBJECT //使用信号与槽需要的宏
 public:
     explicit Punch(QDialog *parent = 0);  //explicit 防止歧义
-    void insertSQL();
+    void modefyPunch();
 
 signals:
 
@@ -34,10 +34,11 @@ public slots:
     void timeinsert();
 private:
     QLabel *timenow;         //现在时间 标签
-    QPushButton *punch;       //打卡按钮
+    QPushButton *punch;       //修改打卡按钮
     QDateTimeEdit *dt;      //时间显式
     QPushButton *sel;       //查询按钮
     MainWindow* w;          //查询窗口
+    ModelPunch* mw;         //修改打卡窗口
     QString insName;
     QString usrname;   //获取用户名
     int id;                 //获取id
@@ -45,6 +46,8 @@ private:
     QString date;           //打卡日期
     QSqlQuery insertquery,query;        //数据库
     bool btn;
+    QPushButton *modifyPss;       //修改密码
+
 };
 
 

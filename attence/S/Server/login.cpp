@@ -83,7 +83,9 @@ void LoginForm::login()
         qDebug() << insertName ;
         break;
     }
-    else if(userNameLEd->text().trimmed() != name || pwdLEd->text() != passwd)
+
+   }
+    if(userNameLEd->text().trimmed() != name || pwdLEd->text() != passwd)
     {
         QMessageBox::warning(this, tr("警告！"),tr("用户名或密码错误！"),QMessageBox::Yes);
 
@@ -93,9 +95,7 @@ void LoginForm::login()
 
         //光标定位
         pwdLEd->setFocus();
-        continue;
     }
-   }
 //    else
 //    {                              //标题              内容                OK按钮
 //       QMessageBox::warning(this, tr("警告！"),tr("用户名或密码错误！"),QMessageBox::Yes);

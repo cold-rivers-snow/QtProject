@@ -28,12 +28,12 @@ Punch::Punch(QDialog *parent) :
     dt->setFont(ft);
 
 
-    //打卡按钮
+    //修改用户打卡按钮
     punch = new QPushButton(this);
-    punch->move(100,140);
-    punch->setText("打卡");
-    punch->setFixedSize(100,100);
-    connect(punch,&QPushButton::clicked,this,&Punch::punchslot);
+    punch->move(20,140);
+    punch->setText("更改打卡"); //插入id，打卡状态，时间
+    punch->setFixedSize(110,110);
+    connect(punch,&QPushButton::clicked,this,&Punch::punchslot);    //跳不过去
     btn = false;
 
     QTimer *time_clock=new QTimer(parent);
@@ -41,13 +41,18 @@ Punch::Punch(QDialog *parent) :
     connect(time_clock,SIGNAL(timeout()),this,SLOT(timeinsert()));
     time_clock->start(1000);
 
+    //修改用户密码按钮
+    modifyPss = new QPushButton(this);
+    modifyPss->move(170,140);
+    modifyPss->setText("更改密码"); //插入id，打卡状态，时间
+    modifyPss->setFixedSize(110,110);
 
 
     //查询按钮
     sel = new QPushButton(this);
-    sel->move(250,140);
+    sel->move(320,140);
     sel->setText("查询");
-    sel->setFixedSize(100,100);
+    sel->setFixedSize(110,110);
     connect(sel,&QPushButton::clicked,this,&Punch::selslot);
 
 
@@ -63,17 +68,27 @@ void Punch::timeinsert()
 {
     if(!btn && (QTime::currentTime().toString() == "08:00:00" || QTime::currentTime().toString() == "17:00:00"))
     {
-        insertSQL();
+        modefyPunch();            //待改
         qDebug("插入成功0");
     }
 }
 
-//按钮的槽函数
+//修改打卡按钮的槽函数
 void Punch::punchslot()
 {
-    state = 1;
-    btn = true;
-    insertSQL();
+//    state = 1;
+//    btn = true;
+//    insertSQL();
+    //出现一个界面，接收输入，用户id，打卡状态，打卡日期。
+    //设置字体大小
+    //修改打卡界面
+    mw = new ModelPunch(this);
+    mw->move ((QApplication::desktop()->width() - mw->width())/2,(QApplication::desktop()->height() - mw->height())/2);
+    mw->setWindowTitle("修改打卡系统");
+    mw->setBaseSize(1800,1600);
+    mw->setWindowModality(Qt::ApplicationModal); //父窗口进入子窗口后，父窗口不可用
+    mw->show();
+    //modefyPunch();            //待改
 }
 
 //查询的槽函数
@@ -88,7 +103,7 @@ void Punch::selslot()
 }
 
 //插入数据库打卡状态
-void Punch::insertSQL()
+void Punch::modefyPunch() //待改
 {
         QSqlDatabase db;
         if(QSqlDatabase::contains("qt_sql_default_connection"))

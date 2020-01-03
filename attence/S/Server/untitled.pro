@@ -28,6 +28,7 @@ SOURCES += \
         mainwindow.cpp \
     login.cpp \
     mainfrom.cpp \
+    modelpunch.cpp \
     punch.cpp \
     attencesql.cpp \
     ext.cpp
@@ -35,10 +36,12 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
     mainfrom.h \
+    modelpunch.h \
     punch.h \
     login.h \
     attencesql.h \
     ext.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        modelpunch.ui
