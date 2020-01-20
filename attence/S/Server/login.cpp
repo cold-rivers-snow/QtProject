@@ -72,12 +72,13 @@ void LoginForm::login()
     while(m_query->next()){
         name = m_query->value(0).toString();
         passwd = m_query->value(1).toString();
-        id = m_query->value(2).toString();
+        id = m_query->value(2).toInt();
 
 
     if(userNameLEd->text().trimmed() == name && pwdLEd->text() == passwd)
     {
         insertName = name;
+        yid = id;
         accept();//关闭窗体，并设置返回值为Accepted
 
         qDebug() << insertName ;
@@ -168,6 +169,6 @@ void LoginForm::selMySQL(QString check)
     while(m_query->next()){
         name = m_query->value(0).toString();
         passwd = m_query->value(1).toString();
-        id = m_query->value(2).toString();
+        id = m_query->value(2).toInt();
     }
 }

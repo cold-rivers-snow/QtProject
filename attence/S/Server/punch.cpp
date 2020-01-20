@@ -33,7 +33,7 @@ Punch::Punch(QDialog *parent) :
     punch->move(20,140);
     punch->setText("更改打卡"); //插入id，打卡状态，时间
     punch->setFixedSize(110,110);
-    connect(punch,&QPushButton::clicked,this,&Punch::punchslot);    //跳不过去
+    connect(punch,&QPushButton::clicked,this,&Punch::punchslot);
     btn = false;
 
     QTimer *time_clock=new QTimer(parent);
@@ -44,8 +44,9 @@ Punch::Punch(QDialog *parent) :
     //修改用户密码按钮
     modifyPss = new QPushButton(this);
     modifyPss->move(170,140);
-    modifyPss->setText("更改密码"); //插入id，打卡状态，时间
+    modifyPss->setText("更改密码"); //插入id，原密码，新密码
     modifyPss->setFixedSize(110,110);
+    connect(modifyPss,&QPushButton::clicked,this,&Punch::punchPasswd);
 
 
     //查询按钮
@@ -88,8 +89,23 @@ void Punch::punchslot()
     mw->setBaseSize(1800,1600);
     mw->setWindowModality(Qt::ApplicationModal); //父窗口进入子窗口后，父窗口不可用
     mw->show();
-    //modefyPunch();            //待改
+    //modefyPunch();            //已改
 }
+
+//修改用户密码的槽函数
+void Punch::punchPasswd()
+{
+    //出现一个界面，接收输入，用户id，原密码，新密码。
+    //设置字体大小
+    //修改打卡界面
+    mw1 = new ModelPasswd(this);
+    mw1->move ((QApplication::desktop()->width() - mw1->width())/2,(QApplication::desktop()->height() - mw1->height())/2);
+    mw1->setWindowTitle("修改用户密码系统");
+    mw1->setBaseSize(1800,1600);
+    mw1->setWindowModality(Qt::ApplicationModal); //父窗口进入子窗口后，父窗口不可用
+    mw1->show();
+}
+
 
 //查询的槽函数
 void Punch::selslot()
@@ -103,7 +119,7 @@ void Punch::selslot()
 }
 
 //插入数据库打卡状态
-void Punch::modefyPunch() //待改
+void Punch::modefyPunch()
 {
         QSqlDatabase db;
         if(QSqlDatabase::contains("qt_sql_default_connection"))

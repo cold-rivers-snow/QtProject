@@ -17,6 +17,7 @@
 #include <QSqlQuery>
 #include <QDebug>
 #include "modelpunch.h"
+#include "modelPasswd.h"
 
 class Punch : public QDialog
 {
@@ -28,6 +29,7 @@ public:
 signals:
 
 public slots:
+    void punchPasswd();//点击修改密码的执行的槽函数
     void punchslot();//点击打卡按钮是执行的槽函数
     void selslot(); //点击查询按钮执行槽函数
     void timerUpdate();
@@ -39,6 +41,7 @@ private:
     QPushButton *sel;       //查询按钮
     MainWindow* w;          //查询窗口
     ModelPunch* mw;         //修改打卡窗口
+    ModelPasswd* mw1;       //修改用户密码
     QString insName;
     QString usrname;   //获取用户名
     int id;                 //获取id
