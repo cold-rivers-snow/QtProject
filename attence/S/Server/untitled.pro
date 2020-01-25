@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    insertuser.cpp \
         main.cpp \
         mainwindow.cpp \
     login.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
     ext.cpp
 
 HEADERS += \
+    insertuser.h \
         mainwindow.h \
     mainfrom.h \
     modelPasswd.h \

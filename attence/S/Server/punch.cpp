@@ -12,7 +12,7 @@ Punch::Punch(QDialog *parent) :
 
     //现在时间标签
     timenow = new QLabel(this);
-    timenow->move(40,60);
+    timenow->move(90,60);
     timenow->setText("现在时间：");
     timenow->setFont(ft);
 
@@ -20,7 +20,7 @@ Punch::Punch(QDialog *parent) :
     QTimer* tr = new QTimer(this);
     dt = new QDateTimeEdit(this);
     dt->setFixedSize(280,32);
-    dt->move(130,60);
+    dt->move(200,60);
     dt->setDisplayFormat("yyyy-MM-dd hh:mm:ss ddd");
     dt->setDateTime(QDateTime::currentDateTime());
     connect(tr,SIGNAL(timeout()),this,SLOT(timerUpdate()));
@@ -49,9 +49,16 @@ Punch::Punch(QDialog *parent) :
     connect(modifyPss,&QPushButton::clicked,this,&Punch::punchPasswd);
 
 
+    //添加用户按钮
+    insertNameP = new QPushButton(this);
+    insertNameP->move(320,140);
+    insertNameP->setText("添加用户"); //插入id，原密码，新密码
+    insertNameP->setFixedSize(110,110);
+    connect(insertNameP,&QPushButton::clicked,this,&Punch::insertUser);
+
     //查询按钮
     sel = new QPushButton(this);
-    sel->move(320,140);
+    sel->move(470,140);
     sel->setText("查询");
     sel->setFixedSize(110,110);
     connect(sel,&QPushButton::clicked,this,&Punch::selslot);
@@ -63,6 +70,48 @@ void Punch::timerUpdate()
 {
     dt->setDisplayFormat("yyyy-MM-dd hh:mm:ss ddd");
     dt->setDateTime(QDateTime::currentDateTime());
+
+    QSqlDatabase db;
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+    db = QSqlDatabase::database("qt_sql_default_connection");
+    else
+    {
+        db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName("localhost");
+        db.setDatabaseName("attence");
+        db.setUserName("root");
+        db.setPassword("root");
+    }
+
+    if (!db.open())
+        qDebug() << "Failed to connect to root mysql admin";
+    else
+        qDebug() << "open";
+
+
+    // 各部分对应的值
+//    QString strYear = dateEdit->sectionText(QDateTimeEdit::YearSection);
+//    QString strMonth = dateEdit->sectionText(QDateTimeEdit::MonthSection);
+//    QString strDay = dateEdit->sectionText(QDateTimeEdit::DaySection);
+    QString strHour = dt->sectionText(QDateTimeEdit::HourSection);
+    QString strMinute = dt->sectionText(QDateTimeEdit::MinuteSection);
+    QString strSecond = dt->sectionText(QDateTimeEdit::SecondSection);
+    QString str;
+    if(strHour == "21" && strMinute == "24" && strSecond == "00")           //合并work这个表可以写成一个服务器的守护进程在服务器后台自己一直跑着（这是一个简单的想法）
+    {
+        str = QString("insert into work (user_name, user_id, user_state,work_date) "
+                              "select *  from (select * from atwork union all select * from offwork) as a");
+    }
+    bool ok = insertquery.exec(str);
+    if(ok)
+    {
+        qDebug("合并成功");
+    }
+//    else
+//    {
+//        qDebug("合并失败");
+//    }
+
 }
 
 void Punch::timeinsert()
@@ -106,6 +155,20 @@ void Punch::punchPasswd()
     mw1->show();
 }
 
+
+//添加用户的槽函数
+void Punch::insertUser()
+{
+    //出现一个界面，接收输入，用户id，原密码，新密码。
+    //设置字体大小
+    //修改打卡界面
+    mw2 = new Insertuser(this);
+    mw2->move ((QApplication::desktop()->width() - mw2->width())/2,(QApplication::desktop()->height() - mw2->height())/2);
+    mw2->setWindowTitle("修改用户密码系统");
+    mw2->setBaseSize(1800,1600);
+    mw2->setWindowModality(Qt::ApplicationModal); //父窗口进入子窗口后，父窗口不可用
+    mw2->show();
+}
 
 //查询的槽函数
 void Punch::selslot()

@@ -18,7 +18,7 @@
 #include <QDebug>
 #include "modelpunch.h"
 #include "modelPasswd.h"
-
+#include "insertuser.h"
 class Punch : public QDialog
 {
     Q_OBJECT //使用信号与槽需要的宏
@@ -34,14 +34,17 @@ public slots:
     void selslot(); //点击查询按钮执行槽函数
     void timerUpdate();
     void timeinsert();
+    void insertUser();
 private:
     QLabel *timenow;         //现在时间 标签
     QPushButton *punch;       //修改打卡按钮
+    QPushButton *insertNameP;       //修改打卡按钮
     QDateTimeEdit *dt;      //时间显式
     QPushButton *sel;       //查询按钮
     MainWindow* w;          //查询窗口
     ModelPunch* mw;         //修改打卡窗口
     ModelPasswd* mw1;       //修改用户密码
+    Insertuser* mw2;       //修改用户密码
     QString insName;
     QString usrname;   //获取用户名
     int id;                 //获取id

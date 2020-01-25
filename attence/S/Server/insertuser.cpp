@@ -1,6 +1,7 @@
-#include "modelPasswd.h"
+#include "insertuser.h"
 
-ModelPasswd::ModelPasswd(QWidget *parent) :
+
+Insertuser::Insertuser(QWidget *parent) :
     QMainWindow(parent)
 {
     QFont ft;
@@ -18,17 +19,17 @@ ModelPasswd::ModelPasswd(QWidget *parent) :
     usr_ide->adjustSize();
     modelIdflag = false;
 
-    //输入原密码
+
+    //输入用户名
     usr_passwdl = new QLabel(this);
     usr_passwdl->move(40,100);
-    usr_passwdl->setText("请输入原密码：");        //输入密码框带小眼睛，可以优化修改
+    usr_passwdl->setText("请输入用户名：");        //输入密码框带小眼睛，可以优化修改
     usr_passwdl->setFont(ft);
     usr_passwdl->adjustSize();
 
     usr_passwde = new QLineEdit(this);
     usr_passwde->move(200,100);
     usr_passwde->adjustSize();
-    usr_passwde->setEchoMode(QLineEdit::Password);
 
 
     //输入新密码
@@ -56,29 +57,50 @@ ModelPasswd::ModelPasswd(QWidget *parent) :
     usr_passwdagaine1->setEchoMode(QLineEdit::Password);
 
 
+    //输入再次输入新密码
+    user_permission = new QLabel(this);
+    user_permission->move(40,280);
+    user_permission->setText("是否为管理员：");
+    user_permission->setFont(ft);
+    user_permission->adjustSize();
+
+
+    QString str1B = "否";
+    QString str0B = "是";
+
+    group = new QButtonGroup(this);
+
+
+    radio0 = new QRadioButton(str0B,this);
+    group->addButton(radio0);
+    radio0->move(200,280);
+
+    radio1 = new QRadioButton(str1B,this);
+    group->addButton(radio1);
+    radio1->move(300,280);
 
     //确定按钮
     ok = new QPushButton(this);
     ok->setFixedSize(100,50);
-    ok->move(160,280);
+    ok->move(160,340);
     ok->setText("确定");
     ok->adjustSize();
-    connect(ok,&QPushButton::clicked,this,&ModelPasswd::modelOk);
-    this->resize( QSize( 460, 350 ));//设置默认窗口大小
+    connect(ok,&QPushButton::clicked,this,&Insertuser::modelOk);
+    this->resize( QSize( 460, 400 ));//设置默认窗口大小
 }
 
-ModelPasswd::~ModelPasswd()
+Insertuser::~Insertuser()
 {
 
 }
 
-QSize ModelPasswd::sizeHint() const      //重载使得默认窗口大小
+QSize Insertuser::sizeHint() const      //重载使得默认窗口大小
  {
      return QSize( 400, 300 );
  }
 
 
-void ModelPasswd::modelAttence()
+void Insertuser::modelAttence()
 {
     QSqlDatabase db;
     if(QSqlDatabase::contains("qt_sql_default_connection"))
@@ -113,25 +135,18 @@ void ModelPasswd::modelAttence()
         }
     }
 
-    QString modelPass = usr_passwde->text();
-    QString modelPassaga = usr_passwdagaine->text();
-    //QString date = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");//获取当前时间
-    //QString nowdate = QTime::currentTime().toString();
-    if(usr_passwdagaine->text() != usr_passwdagaine1->text())
+
+    if(!modelIdflag && usr_passwdagaine->text() == usr_passwdagaine1->text())
     {
-        QMessageBox::information(this ,tr("提示") , tr("两次输入密码不一致!"));
-        return;
-    }
+        int permission = 0;
+        if(radio0->isChecked())
+            permission = 1;
 
-    if(modelIdflag && modelIdPasswd == modelPass)
-    {
-
-        QString str = QString("update user set user_passwd=%1 where user_id=%2").arg(modelPassaga).arg(modelId1);  //向数据库中修改数据，最好不要让atwork为%1。
-
+        QString str = QString("insert into user(user_name,user_id,user_passwd,user_permission) values ('%1',%2,'%3',%4)").arg(usr_passwde->text()).arg(usr_ide->text().toInt()).arg(usr_passwdagaine->text()).arg(permission);  //向数据库中修改数据，最好不要让atwork为%1。
         bool ok = modelquery.exec(str);
         if(ok)
         {
-            QMessageBox::information(this ,tr("提示") , tr("修改密码成功!"));
+            QMessageBox::information(this ,tr("提示") , tr("插入用户成功!"));
             //以后考虑当前登录的用户如果该密码成功，则要退出当前界面，重新登录。
             if(yid == modelId1)
             {
@@ -140,19 +155,18 @@ void ModelPasswd::modelAttence()
         }
         else
         {
-            QMessageBox::information(this ,tr("提示") , tr("修改密码失败!"));
+            QMessageBox::information(this ,tr("提示") , tr("插入用户失败!"));
         }
         qDebug("插入成功");
     }
     else
     {
-//        QMessageBox::information(this ,tr("提示") , tr("密码或id错误!"));
-
+        //QMessageBox::information(this ,tr("提示") , tr("密码或id错误!"));
 
     }
 }
 
-void ModelPasswd::modelOk()
+void Insertuser::modelOk()
 {
     modelAttence();
 }
